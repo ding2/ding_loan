@@ -131,6 +131,7 @@ function ding_loan_loans_form($form, &$form_state, $account, $loans = array()) {
         '#type' => 'material_item',
         '#id' => $loan->id,
         '#title' => $title,
+        '#author' => $loan->author,
         '#cover' => field_view_field('ting_object', $entity, 'ting_cover', 'user_list'),
         '#information' => array(
           'loan_date' => array(
