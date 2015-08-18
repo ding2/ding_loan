@@ -126,10 +126,30 @@ function ding_loan_loans_form($form, &$form_state, $account, $loans = array()) {
         $title = l($entity->getTitle(), $uri['path']);
       }
 
+      // Add creator(s).
+      $creators = $entity->creators;
+      if(!is_array($creators)){
+        $creators = array($creators);
+      }
 
+      $creator_string = '';
+      if(!empty($creators)) {
+        foreach ($creators as $creator) {
+          if (!empty($creator_string)) {
+            $creator_string .= ', ';
+          }
+          $creator_string .= $creator;
+        }
+        $creator_string .= ' :';
+      }
+
+      // Add type.
+      $mat_type = $entity->type;
       $item = array(
         '#type' => 'material_item',
         '#id' => $loan->id,
+        '#creators' => $creator_string,
+        '#material_type' => $mat_type,
         '#title' => $title,
         '#cover' => field_view_field('ting_object', $entity, 'ting_cover', 'user_list'),
         '#information' => array(
